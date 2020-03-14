@@ -104,7 +104,7 @@ Build the `client/` source into `server/public/main.js`. This script is only rea
 
 ##### `npm run dev`
 
-Start the Webpack and PHP development servers for local development. The front end is accessed at `localhost:3000` and the back end API is accessed at `localhost:9000`.
+Start the Webpack and Node.js development servers for local development. The front end is accessed at `localhost:3000` and the back end API is accessed at `localhost:3001`.
 
 ##### `npm run db:export`
 
