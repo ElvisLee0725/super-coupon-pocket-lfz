@@ -47,17 +47,17 @@ Being prepared to speak about your work takes time. It is recommended that you a
 
 ## LearningFuze Final Project Presentations
 
-Each final project group should prepare to spend roughly 25 minutes presenting to the rest of their classmates. This 25 minutes includes a few minutes of "Q & A" at the end of the presentation.
+Each final project group should prepare to spend roughly 20 minutes presenting to the rest of their classmates. This 20 minutes includes a few minutes of "Q & A" at the end of the presentation.
 
 The presentation flow should follow this structure:
 
 1. Team Lead introduces the project as "A &mdash; for &mdash; who want to &mdash;" and only shows the home screen of the project. **DO NOT DEMONSTRATE THE FUNCTIONALITY YET**.
-1. For each Team Member until 15-20 minutes has passed do the following. Team Lead goes last:
+1. For each Team Member until about 15 minutes has passed do the following. Team Lead goes last:
     1. Team Member introduces themself and their primary role(s).
     1. Team Member explains one feature (User can...) or some technical dimension of the project that excited them.
     1. Team Member traces the code for that feature in front of the audience. If Team Member is not speaking about a specific feature, they should be prepared to explain the topic in detail by pointing to code samples in the project.
     1. Team Member **briefly demonstrates** the functionality of the feature as a user.
-1. Take questions from the audience after everyone has presented.
+1. Take questions from the audience for up to 5 minutes after everyone has presented.
 
 ### Tips
 
