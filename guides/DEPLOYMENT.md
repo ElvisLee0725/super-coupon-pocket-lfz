@@ -4,6 +4,26 @@ This guide outlines steps for deploying a full stack JavaScript project to an EC
 
 **Note:** This guide may use "EC2 Instance" and "Ubuntu" interchangeably, because your EC2 instance _should_ be running the Ubuntu operating system.
 
+## Connect to EC2
+
+All of the instructions in this guide require you do issue commands to your EC2 instance in an SSH session.
+
+- On a **Mac OS** or **Linux** computer, open **Terminal**.
+- On a **Windows** computer, open **Git Bash**.
+
+Use the following `ssh` command to sign in. Replace `<your ip address>` with the IP address of your EC2 instance. Replace `path/to/key.pem` with the location of your own SSH key (_e.g._ `~/Desktop/aws-ec2.pem`).
+
+```bash
+ssh -i path/to/key.pem ubuntu@<your ip address>
+```
+
+> For example, if your SSH key is located on your `Desktop` and is named `aws-ec2.pem`, and your EC2 IP address is 111.222.333.444, then your command would be:<br>
+```bash
+ssh -i ~/Desktop/aws-ec2.pem ubuntu@111.222.333.444
+```
+
+If you are unable to connect, notify an instructor right away.
+
 ## Required Tools
 
 You will be deploying your project more than one time as the application gains functionality or bugs are discovered and fixed. There is some setup required for your **first** deployment that is not required for subsequent deployments. This section covers that setup.
