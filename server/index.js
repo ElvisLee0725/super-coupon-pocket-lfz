@@ -14,10 +14,26 @@ app.use(sessionMiddleware);
 app.use(express.json());
 
 app.get('/api/health-check', (req, res, next) => {
-  db.query(`select 'successfully connected' as "message"`)
+  db.query('select \'successfully connected\' as "message"')
     .then(result => res.json(result.rows[0]))
     .catch(err => next(err));
 });
+
+// app.post('/api/test', async (req, res, next) => {
+//   const sql = `INSERT INTO "categories" ("category")
+//   VALUES ($1)
+//   RETURNING *;`;
+//   const params = ['other'];
+
+//   try {
+//     const {
+//       rows: [category = null],
+//     } = await db.query(sql, params);
+//     res.json({ category });
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
 
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));

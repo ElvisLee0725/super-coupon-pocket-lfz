@@ -1,7 +1,7 @@
 {
-  "name": "full-stack-project",
+  "name": "super-coupon-pocket",
   "version": "1.0.0",
-  "description": "A Full Stack Node.js &amp; React app.",
+  "description": "A web application that users can keep track of all coupons they have received easily so they will never miss free stuff or discounts from their favorite merchants.",
   "main": "server/index.js",
   "scripts": {
     "dev": "npm-run-all --silent --parallel dev:*",
@@ -99,6 +99,7 @@
     "@babel/plugin-transform-react-jsx": "7.8.0",
     "babel-eslint": "10.0.3",
     "babel-loader": "8.0.6",
+    "css-loader": "3.6.0",
     "eslint": "6.8.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.20.0",
@@ -108,8 +109,12 @@
     "eslint-plugin-standard": "4.0.1",
     "husky": "4.0.7",
     "lint-staged": "9.5.0",
+    "mini-css-extract-plugin": "0.9.0",
+    "node-sass": "4.14.1",
     "nodemon": "2.0.2",
     "npm-run-all": "4.1.5",
+    "sass-loader": "8.0.2",
+    "style-loader": "1.2.1",
     "webpack": "4.41.5",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.1"

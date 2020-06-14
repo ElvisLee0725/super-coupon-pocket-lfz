@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,8 +18,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    return this.state.isLoading
-      ? <h1>Testing connections...</h1>
-      : <h1>{ this.state.message.toUpperCase() }</h1>;
+    return (
+      <Fragment>
+        <h1>Hello App</h1>
+        <div className='btn btn-primary'>
+          <i className='fas fa-trash'></i>Hey
+        </div>
+      </Fragment>
+    );
   }
 }
