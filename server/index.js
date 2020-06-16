@@ -19,21 +19,10 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// app.post('/api/test', async (req, res, next) => {
-//   const sql = `INSERT INTO "categories" ("category")
-//   VALUES ($1)
-//   RETURNING *;`;
-//   const params = ['other'];
-
-//   try {
-//     const {
-//       rows: [category = null],
-//     } = await db.query(sql, params);
-//     res.json({ category });
-//   } catch (err) {
-//     console.error(err.message);
-//   }
-// });
+// Routes:
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/users', require('./routes/api/users'));
+// app.use('/api/coupons', require('./routes/api/coupons'));
 
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
@@ -43,7 +32,7 @@ app.use((err, req, res, next) => {
   if (err instanceof ClientError) {
     res.status(err.status).json({ error: err.message });
   } else {
-    console.error(err);
+    console.error(err.message);
     res.status(500).json({
       error: 'an unexpected error occurred'
     });
