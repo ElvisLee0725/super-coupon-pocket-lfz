@@ -22,7 +22,7 @@ app.get('/api/health-check', (req, res, next) => {
 // Routes:
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/users', require('./routes/api/users'));
-// app.use('/api/coupons', require('./routes/api/coupons'));
+app.use('/api/coupons', require('./routes/api/coupons'));
 
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
