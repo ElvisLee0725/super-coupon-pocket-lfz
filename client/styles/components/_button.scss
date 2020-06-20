@@ -1,0 +1,7 @@
+.btn {
+  background-color: $themeBlue;
+}
+
+.btn:hover {
+  background-color: fade-out($themeBlue, 0.1);
+}

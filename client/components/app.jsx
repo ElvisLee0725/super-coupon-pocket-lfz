@@ -1,4 +1,7 @@
 import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navbar from './Navbar';
+import Login from './Login';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,12 +22,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Fragment>
-        <h1>Hello App</h1>
-        <div className='btn btn-primary'>
-          <i className='fas fa-trash'></i>Hey
-        </div>
-      </Fragment>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Login} />
+          </Switch>
+        </Fragment>
+      </Router>
     );
   }
 }
