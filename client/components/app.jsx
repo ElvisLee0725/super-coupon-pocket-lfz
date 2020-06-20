@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './Navbar';
 import Login from './Login';
 
+// Redux
+import { Provider } from 'react-redux';
+import store from '../store';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,14 +26,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <Fragment>
-          <Navbar />
-          <Switch>
-            <Route exact path='/' component={Login} />
-          </Switch>
-        </Fragment>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <Switch>
+              <Route exact path='/' component={Login} />
+            </Switch>
+          </Fragment>
+        </Router>
+      </Provider>
     );
   }
 }
