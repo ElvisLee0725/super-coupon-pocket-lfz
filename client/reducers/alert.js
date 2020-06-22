@@ -1,7 +1,7 @@
 import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
 
 const initialState = [];
-// { id: xxx(from uuid), msg: xxx, alertType: 'success' }
+// [{ id: xxx(from uuid), msg: xxx, alertType: 'success' }, ...]
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
