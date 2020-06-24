@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
 import Alert from './Alert';
@@ -62,7 +62,9 @@ const Login = ({ login, isAuthenticated }) => {
             </button>
           </form>
           <div className='my-4 font-weight-bold'>OR</div>
-          <button className='btn btn-primary btn-block'>Register</button>
+          <Link to='/register' className='btn btn-primary btn-block'>
+            Sign up
+          </Link>
         </div>
       </div>
     </Fragment>

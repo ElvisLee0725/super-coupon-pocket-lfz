@@ -60,13 +60,13 @@ router.post(
             RETURNING "user_id";
         `;
       const {
-        rows: [user_id = null]
+        rows: [user = null]
       } = await db.query(sqlInsertUser, [username, email, hashedPW, avatarUrl]);
 
       // Use JWT to sign user_id to the token
       const payload = {
         user: {
-          id: user_id
+          id: user.user_id
         }
       };
 
