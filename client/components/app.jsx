@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './Navbar';
 import Login from './Login';
+import Register from './Register';
 import Dashboard from './Dashboard';
+import PrivateRoute from '../routers/PrivateRoute';
 import setAuthToken from '../utils/setAuthToken';
 import { loadUser } from '../actions/auth';
 
@@ -40,10 +41,10 @@ export default class App extends React.Component {
       <Provider store={store}>
         <Router>
           <Fragment>
-            <Navbar />
             <Switch>
               <Route exact path='/' component={Login} />
-              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/register' component={Register} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
             </Switch>
           </Fragment>
         </Router>
