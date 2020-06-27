@@ -5,3 +5,19 @@
 .btn:hover {
   background-color: fade-out($themeBlue, 0.1);
 }
+
+.btn-style {
+  padding: 0.5rem 5rem;
+}
+
+// Mobile styles
+@media (max-width: 480px) {
+  .btn-block-xs-only {
+    display: block;
+    width: 100%;
+    margin-top: 3rem !important;
+  }
+  .expirationDateTitle {
+    display: block;
+  }
+}

@@ -80,7 +80,8 @@ router.post(
 router.get('/', auth, async (req, res, next) => {
   try {
     const sqlGetAllCoupons = `
-            SELECT "c"."merchant",
+            SELECT "c"."coupon_id" AS "id",
+                   "c"."merchant",
                    "c"."discount",
                    "c"."expiration_date",
                    "ca"."category",
@@ -93,6 +94,20 @@ router.get('/', auth, async (req, res, next) => {
       req.user.id
     ]);
     res.json(coupons);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// @route GET /api/coupons/categories
+// @desc  Get all category ids and names
+// @Private
+router.get('/categories', auth, async (req, res, next) => {
+  try {
+    const sql = 'SELECT * FROM "categories";';
+    const { rows: categories = null } = await db.query(sql);
+
+    res.json(categories);
   } catch (err) {
     next(err);
   }

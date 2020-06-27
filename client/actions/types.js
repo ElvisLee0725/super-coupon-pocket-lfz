@@ -10,3 +10,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
+export const GET_COUPONS = 'GET_COUPONS';
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const CLEAR_COUPON = 'CLEAR_COUPON';
+export const COUPON_ERROR = 'COUPON_ERROR';

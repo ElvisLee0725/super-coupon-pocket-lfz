@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
+import AddCoupon from './AddCoupon';
 import PrivateRoute from '../routers/PrivateRoute';
 import setAuthToken from '../utils/setAuthToken';
+import Navbar from './Navbar';
+import Alert from './Alert';
 import { loadUser } from '../actions/auth';
 
 // Redux
@@ -41,10 +44,13 @@ export default class App extends React.Component {
       <Provider store={store}>
         <Router>
           <Fragment>
+            <Navbar />
+            <Alert />
             <Switch>
               <Route exact path='/' component={Login} />
               <Route exact path='/register' component={Register} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute exact path='/add-coupon' component={AddCoupon} />
             </Switch>
           </Fragment>
         </Router>
