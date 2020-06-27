@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
-import Alert from './Alert';
 import PropTypes from 'prop-types';
 
 const Login = ({ login, isAuthenticated }) => {
@@ -33,7 +32,7 @@ const Login = ({ login, isAuthenticated }) => {
       <div className='box-layout'>
         <div className='box-layout__box'>
           <h4 className='mb-4'>Super Coupon Pocket</h4>
-          <Alert />
+
           <form onSubmit={e => handleSubmit(e)}>
             <div className='form-group'>
               <input
