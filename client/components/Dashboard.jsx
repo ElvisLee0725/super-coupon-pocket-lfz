@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllCoupons, getCategories } from '../actions/coupon';
 import PropTypes from 'prop-types';
+import CouponItem from './CouponItem';
 
 const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
   useEffect(() => {
@@ -13,11 +14,11 @@ const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
     <Fragment>
       <div className='container'>
         <h1>Dashboard Page...</h1>
-        {coupons.map(c => (
-          <li key={c.id}>{c.merchant}</li>
+        {coupons.map(coupon => (
+          <CouponItem key={coupon.id} coupon={coupon} />
         ))}
         <div className='text-center'>
-          <Link className='btn btn-primary' to='/add-coupon'>
+          <Link className='btn btn-themeBlue' to='/add-coupon'>
             Add coupon
           </Link>
         </div>
@@ -29,7 +30,7 @@ const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
         <h2>You have no coupon.</h2>
       </div>
       <div className='text-center'>
-        <Link className='btn btn-primary' to='/add-coupon'>
+        <Link className='btn btn-themeBlue' to='/add-coupon'>
           Add coupon
         </Link>
       </div>

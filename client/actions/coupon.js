@@ -1,15 +1,16 @@
 import {
   GET_COUPONS,
-  CLEAR_COUPON,
+  GET_CURCOUPON,
+  CLEAR_CURCOUPON,
   COUPON_ERROR,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  DELETE_COUPON
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
 
 export const getAllCoupons = () => async dispatch => {
-  // Clean coupon get from previous request:
-  dispatch({ type: CLEAR_COUPON });
+  dispatch({ type: CLEAR_CURCOUPON });
 
   try {
     const res = await axios.get('/api/coupons');
@@ -18,8 +19,8 @@ export const getAllCoupons = () => async dispatch => {
     dispatch({
       type: COUPON_ERROR,
       payload: {
-        msg: err.response.statusText,
-        status: err.response.status
+        msg: err.response.data.statusText,
+        status: err.response.data.status
       }
     });
   }
@@ -33,8 +34,65 @@ export const getCategories = () => async dispatch => {
     dispatch({
       type: COUPON_ERROR,
       payload: {
-        msg: err.response.statusText,
-        status: err.response.status
+        msg: err.response.data.statusText,
+        status: err.response.data.status
+      }
+    });
+  }
+};
+
+export const getCouponById = couponId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/coupons/coupon/${couponId}`);
+    dispatch({ type: GET_CURCOUPON, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: COUPON_ERROR,
+      payload: {
+        msg: err.response.data.statusText,
+        status: err.response.data.status
+      }
+    });
+  }
+};
+
+export const editCoupon = (
+  couponId,
+  merchant,
+  discount,
+  categoryId,
+  expirationDate,
+  usedCoupon,
+  history
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const body = {
+      merchant,
+      discount,
+      categoryId,
+      expirationDate,
+      usedCoupon
+    };
+    // Update the coupon with its id
+    await axios.put(`/api/coupons/${couponId}`, JSON.stringify(body), config);
+
+    // Get all coupons after the selected coupon is updated
+    getAllCoupons();
+    dispatch(setAlert('Coupon Updated', 'success'));
+
+    // Redirect to /dashboard when update success
+    history.push('/dashboard');
+  } catch (err) {
+    dispatch({
+      type: COUPON_ERROR,
+      payload: {
+        msg: err.response.data.statusText,
+        status: err.response.data.status
       }
     });
   }
@@ -61,11 +119,10 @@ export const addCoupon = (
     );
 
     // Get all coupons after the new coupon is posted
-    const res = await axios.get('/api/coupons');
-    dispatch({ type: GET_COUPONS, payload: res.data });
-    dispatch(setAlert('Coupon created', 'success'));
+    getAllCoupons();
+    dispatch(setAlert('Coupon Created', 'success'));
 
-    // Go back to dashboard when coupon is created
+    // Redirect to dashboard when coupon is created
     history.push('/dashboard');
   } catch (err) {
     const { error } = err.response.data;
@@ -76,7 +133,32 @@ export const addCoupon = (
 
     dispatch({
       type: COUPON_ERROR,
-      payload: { msg: err.response.statusText, state: err.response.status }
+      payload: {
+        msg: err.response.data.statusText,
+        state: err.response.data.status
+      }
+    });
+  }
+};
+
+export const deleteCoupon = (couponId, history) => async dispatch => {
+  try {
+    // Send delete request
+    await axios.delete(`/api/coupons/${couponId}`);
+
+    // Dispatch action to remove that coupon in redux state
+    dispatch({ type: DELETE_COUPON, payload: couponId });
+    dispatch(setAlert('Coupon Removed', 'success'));
+
+    // Redirect to /dashboard
+    history.push('/dashboard');
+  } catch (err) {
+    dispatch({
+      type: COUPON_ERROR,
+      payload: {
+        msg: err.response.data.statusText,
+        state: err.response.data.status
+      }
     });
   }
 };

@@ -42,7 +42,7 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
         <Link to='/dashboard' style={{ color: '#000' }}>
           <i className='fas fa-chevron-left'></i> &nbsp;Back
         </Link>
-        <h1 className='text-center'>Add</h1>
+        <h2 className='text-center'>Add</h2>
 
         <form onSubmit={e => handleSubmit(e)}>
           <div className='form-group'>
@@ -58,14 +58,14 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
           <div className='form-group'>
             <textarea
               className='form-control'
-              rows='5'
+              rows='3'
               placeholder="What's the good deal?"
               name='discount'
               value={discount}
               onChange={e => handleChange(e)}
             ></textarea>
           </div>
-          <h5>Category: </h5>
+          <h6>Category: </h6>
           <div className='form-group'>
             {categories.map(cat => (
               <div
@@ -86,7 +86,7 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
               </div>
             ))}
           </div>
-          <div>
+          <div className='mb-5'>
             <span className='expirationDateTitle'>Expiration Date: &nbsp;</span>
             <SingleDatePicker
               date={expirationDate}
@@ -101,7 +101,7 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
 
           <button
             type='submit'
-            className='mt-1 btn btn-primary btn-block-xs-only btn-style float-right'
+            className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
           >
             Save
           </button>

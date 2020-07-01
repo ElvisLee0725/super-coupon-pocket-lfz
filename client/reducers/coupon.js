@@ -1,8 +1,10 @@
 import {
+  GET_CURCOUPON,
   GET_COUPONS,
   GET_CATEGORIES,
   COUPON_ERROR,
-  CLEAR_COUPON
+  CLEAR_CURCOUPON,
+  DELETE_COUPON
 } from '../actions/types';
 
 const initialState = {
@@ -16,30 +18,50 @@ const initialState = {
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case GET_CURCOUPON:
+      return {
+        ...state,
+        curCoupon: payload,
+        loading: false
+      };
+
+    case CLEAR_CURCOUPON:
+      return {
+        ...state,
+        curCoupon: null,
+        loading: false
+      };
+
+    case DELETE_COUPON:
+      return {
+        ...state,
+        curCoupon: null,
+        coupons: state.coupons.filter(coupon => coupon.id !== payload),
+        loading: false
+      };
+
     case GET_COUPONS:
       return {
         ...state,
         coupons: payload,
         loading: false
       };
+
     case GET_CATEGORIES:
       return {
         ...state,
         categories: payload,
         loading: false
       };
-    case CLEAR_COUPON:
-      return {
-        ...state,
-        coupon: null,
-        loading: false
-      };
+
     case COUPON_ERROR:
       return {
         ...state,
         loading: false,
-        error: payload
+        error: payload,
+        curCoupon: null
       };
+
     default:
       return state;
   }

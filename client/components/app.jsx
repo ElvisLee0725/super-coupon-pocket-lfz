@@ -4,6 +4,7 @@ import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
 import AddCoupon from './AddCoupon';
+import EditCoupon from './EditCoupon';
 import PrivateRoute from '../routers/PrivateRoute';
 import setAuthToken from '../utils/setAuthToken';
 import Navbar from './Navbar';
@@ -51,6 +52,11 @@ export default class App extends React.Component {
               <Route exact path='/register' component={Register} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute exact path='/add-coupon' component={AddCoupon} />
+              <PrivateRoute
+                exact
+                path='/edit-coupon/:couponId'
+                component={EditCoupon}
+              />
             </Switch>
           </Fragment>
         </Router>
