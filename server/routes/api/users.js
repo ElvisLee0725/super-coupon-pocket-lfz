@@ -40,7 +40,9 @@ router.post(
         rows: [registeredEmail = null]
       } = await db.query(sqlCheckUserExist, [email]);
       if (registeredEmail) {
-        return next(new ClientError('This email is registered already', 400));
+        return next(
+          new ClientError([{ msg: 'This email is registered already' }], 400)
+        );
       }
 
       // Get user gravatar

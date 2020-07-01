@@ -63,13 +63,17 @@ router.post(
         rows: [user = null]
       } = await db.query(sqlCheckUserExist, [email]);
       if (!user) {
-        return next(new ClientError('Invalid Credentials', 404));
+        return next(
+          new ClientError([{ msg: 'Email or Password does not match' }], 404)
+        );
       }
 
       // Check if input password matches
       const isMatch = bcrypt.compareSync(password, user.password);
       if (!isMatch) {
-        return next(new ClientError('Invalid Credentials', 404));
+        return next(
+          new ClientError([{ msg: 'Email or Password does not match' }], 404)
+        );
       }
 
       const payload = {

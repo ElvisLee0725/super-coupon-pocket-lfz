@@ -21,12 +21,7 @@ router.post(
     // Check if merchant, discount are sent. Expire date is optional
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(
-        new ClientError(
-          'Merchant name and discount description are required',
-          400
-        )
-      );
+      return next(new ClientError(errors.array(), 400));
     }
 
     const {
@@ -49,7 +44,9 @@ router.post(
         rows: [cat = null]
       } = await db.query(sqlCheckCategory, [categoryId]);
       if (!cat) {
-        return next(new ClientError('The category cannot be found', 404));
+        return next(
+          new ClientError([{ msg: 'The category cannot be found' }], 404)
+        );
       }
 
       const sqlCreateCoupon = `
@@ -84,6 +81,7 @@ router.get('/', auth, async (req, res, next) => {
                    "c"."merchant",
                    "c"."discount",
                    "c"."expiration_date",
+                   "c"."created_at",
                    "ca"."category",
                    "c"."used"
             FROM "coupons" AS "c"
@@ -150,7 +148,7 @@ router.put(
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return next(new ClientError(errors.array(), 400));
     }
 
     const {
@@ -173,7 +171,9 @@ router.put(
         rows: [cat = null]
       } = await db.query(sqlCheckCategory, [categoryId]);
       if (!cat) {
-        return next(new ClientError('The category cannot be found', 404));
+        return next(
+          new ClientError([{ msg: 'The category cannot be found' }], 404)
+        );
       }
 
       // Check current login user owns this coupon:
@@ -189,13 +189,16 @@ router.put(
       // No user_id found, means the couponId is not valid
       if (!couponUserId) {
         return next(
-          new ClientError(`Coupon with id: ${couponId} is not found.`, 404)
+          new ClientError(
+            [{ msg: `Coupon with id: ${couponId} is not found.` }],
+            404
+          )
         );
       }
 
       // Check if the user_id of the coupon matches the login user
       if (couponUserId.user_id !== req.user.id) {
-        return next(new ClientError('Not authorized', 401));
+        return next(new ClientError([{ msg: 'Not authorized' }], 401));
       }
 
       // Start the coupon update
@@ -234,7 +237,7 @@ router.delete('/:couponId', auth, async (req, res, next) => {
   const { couponId } = req.params;
 
   if (isNaN(couponId) || couponId <= 0) {
-    return next(new ClientError('This coupon id is invalid', '400'));
+    return next(new ClientError([{ msg: 'This coupon id is invalid' }], '400'));
   }
 
   try {
@@ -251,13 +254,16 @@ router.delete('/:couponId', auth, async (req, res, next) => {
     // No user id found, the coupon id doesn't exist in the table
     if (!user) {
       return next(
-        new ClientError(`This coupon id ${couponId} does not exist`, 404)
+        new ClientError(
+          [{ msg: `This coupon id ${couponId} does not exist` }],
+          404
+        )
       );
     }
 
     // The coupon doesn't belong to current login user
     if (user.user_id !== req.user.id) {
-      return next(new ClientError('Not authorized', 401));
+      return next(new ClientError([{ msg: 'Not authorized' }], 401));
     }
 
     // Delete coupon

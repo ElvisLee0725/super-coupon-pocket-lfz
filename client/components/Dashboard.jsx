@@ -8,7 +8,7 @@ import CouponItem from './CouponItem';
 const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
   useEffect(() => {
     getAllCoupons();
-  }, [getAllCoupons]);
+  }, []);
 
   return coupons.length > 0 ? (
     <Fragment>

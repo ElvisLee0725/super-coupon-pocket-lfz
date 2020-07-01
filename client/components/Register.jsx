@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setAlert } from '../actions/alert';
 import { register } from '../actions/auth';
-import Alert from './Alert';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -43,7 +42,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <div className='box-layout'>
         <div className='box-layout__box'>
           <h4 className='mb-4'>Sign Up</h4>
-          <Alert />
+
           <form onSubmit={e => handleSubmit(e)}>
             <div className='form-group'>
               <input
