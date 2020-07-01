@@ -193,6 +193,7 @@ const EditCoupon = ({
                   <button
                     type='button'
                     className='btn btn-themeBlue btn-halfWidth'
+                    data-dismiss='modal'
                   >
                     Nope
                   </button>

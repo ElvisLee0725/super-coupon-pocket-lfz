@@ -43,10 +43,10 @@ export const register = ({ username, email, password }) => async dispatch => {
     dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     dispatch(loadUser());
   } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      error.forEach(err => {
-        dispatch(setAlert(err.msg, 'danger'));
+    const errors = err.response.data.error;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, 'danger'));
       });
     }
     dispatch({ type: REGISTER_FAIL });
@@ -69,9 +69,10 @@ export const login = (email, password) => async dispatch => {
     dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     dispatch(loadUser());
   } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      dispatch(setAlert(error, 'danger'));
+    const errors = err.response.data.error;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({ type: LOGIN_FAIL });
   }

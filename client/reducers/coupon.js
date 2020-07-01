@@ -4,6 +4,7 @@ import {
   GET_CATEGORIES,
   COUPON_ERROR,
   CLEAR_CURCOUPON,
+  UPDATE_COUPON,
   DELETE_COUPON
 } from '../actions/types';
 
@@ -29,6 +30,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         curCoupon: null,
+        loading: false
+      };
+
+    case UPDATE_COUPON:
+      return {
+        ...state,
+        coupons: state.coupons.map(coupon =>
+          coupon.id === payload.id ? payload : coupon
+        ),
         loading: false
       };
 

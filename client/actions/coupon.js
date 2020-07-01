@@ -4,6 +4,7 @@ import {
   CLEAR_CURCOUPON,
   COUPON_ERROR,
   GET_CATEGORIES,
+  UPDATE_COUPON,
   DELETE_COUPON
 } from './types';
 import { setAlert } from './alert';
@@ -79,15 +80,23 @@ export const editCoupon = (
       usedCoupon
     };
     // Update the coupon with its id
-    await axios.put(`/api/coupons/${couponId}`, JSON.stringify(body), config);
+    const res = await axios.put(
+      `/api/coupons/${couponId}`,
+      JSON.stringify(body),
+      config
+    );
 
-    // Get all coupons after the selected coupon is updated
-    getAllCoupons();
+    dispatch({ type: UPDATE_COUPON, payload: res });
     dispatch(setAlert('Coupon Updated', 'success'));
 
     // Redirect to /dashboard when update success
     history.push('/dashboard');
   } catch (err) {
+    const errors = err.response.data.error;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
     dispatch({
       type: COUPON_ERROR,
       payload: {
@@ -125,10 +134,9 @@ export const addCoupon = (
     // Redirect to dashboard when coupon is created
     history.push('/dashboard');
   } catch (err) {
-    const { error } = err.response.data;
-    // error is the error message from server
-    if (error) {
-      dispatch(setAlert(error, 'danger'));
+    const errors = err.response.data.error;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -153,6 +161,12 @@ export const deleteCoupon = (couponId, history) => async dispatch => {
     // Redirect to /dashboard
     history.push('/dashboard');
   } catch (err) {
+    const errors = err.response.data.error;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
     dispatch({
       type: COUPON_ERROR,
       payload: {
