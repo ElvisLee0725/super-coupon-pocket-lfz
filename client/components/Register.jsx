@@ -107,12 +107,17 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             </div>
             <button
               type='submit'
-              className='btn btn-primary btn-block'
+              className='btn btn-themeBlue btn-block'
               disabled={disableSignUpBtn ? 'disabled' : ''}
             >
               Sign up
             </button>
           </form>
+
+          <div className='my-4 font-weight-bold'>OR</div>
+          <Link to='/' className='btn btn-themeBlue btn-block'>
+            Login
+          </Link>
         </div>
       </div>
     </Fragment>

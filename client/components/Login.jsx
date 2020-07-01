@@ -56,12 +56,12 @@ const Login = ({ login, isAuthenticated }) => {
                 minLength='6'
               />
             </div>
-            <button type='submit' className='btn btn-primary btn-block'>
+            <button type='submit' className='btn btn-themeBlue btn-block'>
               Login
             </button>
           </form>
           <div className='my-4 font-weight-bold'>OR</div>
-          <Link to='/register' className='btn btn-primary btn-block'>
+          <Link to='/register' className='btn btn-themeBlue btn-block'>
             Sign up
           </Link>
         </div>

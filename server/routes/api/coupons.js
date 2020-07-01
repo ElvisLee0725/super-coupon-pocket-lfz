@@ -113,6 +113,28 @@ router.get('/categories', auth, async (req, res, next) => {
   }
 });
 
+// @route GET /api/coupons/coupon/:id
+// @desc Get a coupon by its id for edit
+// @Private
+router.get('/coupon/:id', auth, async (req, res, next) => {
+  try {
+    const sqlGetCouponById = `
+                  SELECT "c"."merchant",
+                         "c"."discount",
+                         "c"."category_id",
+                         "c"."expiration_date",
+                         "c"."used"
+                  FROM "coupons" AS "c"
+                  WHERE "c"."coupon_id" = $1;`;
+    const {
+      rows: [coupon = null]
+    } = await db.query(sqlGetCouponById, [req.params.id]);
+    res.json(coupon);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // @route   PUT /api/coupons/:couponId
 // @desc    Edit a coupon with its couponId
 // @access  Private
