@@ -7,6 +7,20 @@
   }
 }
 
+.btn-addCoupon {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn-addCoupon__icon-text {
+  display: flex;
+  flex-direction: column;
+  color: $themeBlue;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .btn-delete {
   background-color: $themeRed;
   color: #fff;

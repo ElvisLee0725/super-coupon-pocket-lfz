@@ -5,7 +5,8 @@ import {
   COUPON_ERROR,
   CLEAR_CURCOUPON,
   UPDATE_COUPON,
-  DELETE_COUPON
+  DELETE_COUPON,
+  UPDATE_COUPON_USED
 } from '../actions/types';
 
 const initialState = {
@@ -39,6 +40,21 @@ export default (state = initialState, action) => {
         coupons: state.coupons.map(coupon =>
           coupon.id === payload.id ? payload : coupon
         ),
+        loading: false
+      };
+
+    case UPDATE_COUPON_USED:
+      return {
+        ...state,
+        coupons: state.coupons.map(coupon => {
+          if (coupon.id === payload.coupon_id) {
+            return {
+              ...coupon,
+              used: payload.used
+            };
+          }
+          return coupon;
+        }),
         loading: false
       };
 

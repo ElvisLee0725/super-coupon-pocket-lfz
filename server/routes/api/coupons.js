@@ -190,7 +190,7 @@ router.put(
       if (!couponUserId) {
         return next(
           new ClientError(
-            [{ msg: `Coupon with id: ${couponId} is not found.` }],
+            [{ msg: `Coupon with id '${couponId}' is not found` }],
             404
           )
         );
@@ -198,7 +198,7 @@ router.put(
 
       // Check if the user_id of the coupon matches the login user
       if (couponUserId.user_id !== req.user.id) {
-        return next(new ClientError([{ msg: 'Not authorized' }], 401));
+        return next(new ClientError([{ msg: 'Not Authorized' }], 401));
       }
 
       // Start the coupon update
@@ -229,6 +229,54 @@ router.put(
     }
   }
 );
+
+// @route   PATCH /api/coupons/:couponId
+// @desc    Update a coupon is used or unsed
+// @access  Private
+router.patch('/:couponId', auth, async (req, res, next) => {
+  const { couponId } = req.params;
+  const { used } = req.body;
+
+  try {
+    // Check if user owns this coupon before updating
+    const sqlCheckUser = `
+      SELECT "c"."user_id"
+      FROM "coupons" AS "c"
+      WHERE "c"."coupon_id" = $1;
+    `;
+    const {
+      rows: [user = null]
+    } = await db.query(sqlCheckUser, [couponId]);
+
+    if (!user) {
+      return next(
+        new ClientError(
+          [{ msg: `Coupon with id '${couponId}' is not found` }],
+          404
+        )
+      );
+    }
+
+    if (user.user_id !== req.user.id) {
+      return next(new ClientError([{ msg: 'Not Authorized' }], 401));
+    }
+
+    // Update this coupon
+    const sqlUpdateUsed = `
+      UPDATE "coupons"
+      SET "used" = $1
+      WHERE "coupon_id" = $2
+      RETURNING "coupon_id", "used";
+    `;
+    const {
+      rows: [coupon = null]
+    } = await db.query(sqlUpdateUsed, [used, couponId]);
+
+    res.json(coupon);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // @route   DELETE /api/coupons/:couponId
 // @desc    Delete a coupon with its couponId

@@ -5,6 +5,7 @@ import {
   COUPON_ERROR,
   GET_CATEGORIES,
   UPDATE_COUPON,
+  UPDATE_COUPON_USED,
   DELETE_COUPON
 } from './types';
 import { setAlert } from './alert';
@@ -57,13 +58,44 @@ export const getCouponById = couponId => async dispatch => {
   }
 };
 
+export const editCouponUsed = (couponId, used) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const res = await axios.patch(
+      `/api/coupons/${couponId}`,
+      JSON.stringify({ used }),
+      config
+    );
+
+    dispatch({ type: UPDATE_COUPON_USED, payload: res.data });
+  } catch (err) {
+    const errors = err.response.data.error;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: COUPON_ERROR,
+      payload: {
+        msg: err.response.data.statusText,
+        status: err.response.data.status
+      }
+    });
+  }
+};
+
 export const editCoupon = (
   couponId,
   merchant,
   discount,
   categoryId,
   expirationDate,
-  usedCoupon,
+  used,
   history
 ) => async dispatch => {
   try {
@@ -77,7 +109,7 @@ export const editCoupon = (
       discount,
       categoryId,
       expirationDate,
-      usedCoupon
+      used
     };
     // Update the coupon with its id
     const res = await axios.put(
@@ -127,8 +159,6 @@ export const addCoupon = (
       config
     );
 
-    // Get all coupons after the new coupon is posted
-    getAllCoupons();
     dispatch(setAlert('Coupon Created', 'success'));
 
     // Redirect to dashboard when coupon is created
@@ -154,8 +184,8 @@ export const deleteCoupon = (couponId, history) => async dispatch => {
     // Send delete request
     await axios.delete(`/api/coupons/${couponId}`);
 
-    // Dispatch action to remove that coupon in redux state
-    dispatch({ type: DELETE_COUPON, payload: couponId });
+    // Dispatch action to remove that coupon in redux state. The coupon id in redux is number, but here is string
+    dispatch({ type: DELETE_COUPON, payload: parseInt(couponId) });
     dispatch(setAlert('Coupon Removed', 'success'));
 
     // Redirect to /dashboard
