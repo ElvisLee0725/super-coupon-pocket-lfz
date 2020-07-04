@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
+import DeleteModal from './DeleteModal';
 import {
   editCoupon,
   deleteCoupon,
@@ -164,52 +165,16 @@ const EditCoupon = ({
             type='button'
             className='mt-1 btn btn-delete btn-block-xs-only btn-style float-right'
             data-toggle='modal'
-            data-target='#deleteCouponModal'
+            data-target={`#deleteCouponModal${match.params.couponId}`}
           >
             Delete
           </button>
-          <div
-            className='modal fade'
-            id='deleteCouponModal'
-            tabIndex='-1'
-            role='dialog'
-            aria-labelledby='exampleModalLabel'
-            aria-hidden='true'
-          >
-            <div className='modal-dialog modal-dialog-centered' role='document'>
-              <div className='modal-content'>
-                <div className='modal-header'>
-                  <h5
-                    className='modal-title text-center'
-                    id='exampleModalLabel'
-                  >
-                    Are you sure you want to delete this deal?
-                  </h5>
-                </div>
-                <div className='modal-body text-center'>
-                  You may add more deals whenever you want.
-                </div>
-                <div className='modal-footer'>
-                  <button
-                    type='button'
-                    className='btn btn-themeBlue btn-halfWidth'
-                    data-dismiss='modal'
-                  >
-                    Nope
-                  </button>
 
-                  <button
-                    type='button'
-                    className='btn btn-delete btn-halfWidth'
-                    data-dismiss='modal'
-                    onClick={() => deleteCoupon(match.params.couponId, history)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DeleteModal
+            deleteCoupon={deleteCoupon}
+            couponId={match.params.couponId}
+            history={history}
+          />
         </form>
       </div>
     </Fragment>
