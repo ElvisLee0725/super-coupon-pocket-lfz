@@ -30,14 +30,14 @@ const CouponItem = ({
                   checked={markUsed}
                   value={markUsed}
                   onChange={() => {
-                    setUsed(!markUsed);
-                    editCouponUsed(id, !markUsed);
+                    setUsed(true);
+                    editCouponUsed(id, true);
                   }}
                 />
               </div>
             </form>
           </div>
-          <div className={`coupon-detail ${markUsed ? 'coupon-used' : ''}`}>
+          <div className='coupon-detail'>
             <h6>{merchant}</h6>
             <p className='lead coupon-layout__discount'>{discount}</p>
             <p className='coupon-layout__expiration'>
