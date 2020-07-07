@@ -3,20 +3,36 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllCoupons, getCategories } from '../actions/coupon';
 import PropTypes from 'prop-types';
+import CouponFilters from './CouponFilters';
 import CouponItem from './CouponItem';
+import CouponUsedExpired from './CouponUsedExpired';
+import selectCoupons from '../selectors/coupons';
+import selectUsedExpired from '../selectors/couponsUsedExpired';
 
-const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
+const Dashboard = ({
+  getAllCoupons,
+  getCategories,
+  coupons,
+  loading,
+  filter
+}) => {
   const [openingCouponId, setOpeningCouponId] = useState(undefined);
+  const [openUsedCoupons, toggleUsedCoupons] = useState(false);
 
   useEffect(() => {
     getAllCoupons();
+    getCategories();
   }, []);
+
+  const couponsFiltered = selectCoupons(coupons, filter);
+  const couponsUsedandExpired = selectUsedExpired(coupons);
 
   return coupons.length > 0 ? (
     <Fragment>
       <div className='container'>
-        <h1 className='text-center m-5'>Dashboard Page...</h1>
-        {coupons.map(coupon => (
+        <CouponFilters />
+
+        {couponsFiltered.map(coupon => (
           <CouponItem
             key={coupon.id}
             coupon={coupon}
@@ -31,6 +47,31 @@ const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
               Add coupon
             </Link>
           </div>
+        </div>
+
+        <div className='usedExpired pt-3'>
+          <a
+            className='usedExpired__toggle'
+            data-toggle='collapse'
+            href='#usedExpiredArea'
+            role='button'
+            aria-expanded='false'
+            aria-controls='usedExpiredArea'
+            onClick={() => toggleUsedCoupons(!openUsedCoupons)}
+          >
+            <i
+              className={`fas fa-chevron-right ${
+                openUsedCoupons ? 'open-used-coupons' : ''
+              }`}
+            ></i>
+            &nbsp;{' '}
+            {couponsUsedandExpired.length > 0 &&
+              `(${couponsUsedandExpired.length})`}{' '}
+            used and expired
+          </a>
+        </div>
+        <div className='collapse' id='usedExpiredArea'>
+          <CouponUsedExpired coupons={couponsUsedandExpired} />
         </div>
       </div>
     </Fragment>
@@ -54,11 +95,15 @@ const Dashboard = ({ getAllCoupons, coupon: { coupons, loading } }) => {
 Dashboard.propTypes = {
   getAllCoupons: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
-  coupon: PropTypes.object.isRequired
+  coupons: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  filter: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  coupon: state.coupon
+  coupons: state.coupon.coupons,
+  loading: state.coupon.loading,
+  filter: state.filter
 });
 
 export default connect(mapStateToProps, { getAllCoupons, getCategories })(

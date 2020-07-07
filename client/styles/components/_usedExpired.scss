@@ -1,0 +1,17 @@
+.usedExpired {
+  border-top: 1px solid $black;
+}
+
+.usedExpired__toggle {
+  color: $black;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+.open-used-coupons {
+  transform: rotate(90deg);
+  transition: 0.3s ease-in-out;
+}
