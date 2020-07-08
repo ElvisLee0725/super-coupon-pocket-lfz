@@ -21,7 +21,13 @@ const Navbar = ({ logout, isAuthenticated }) => {
         </button>
         <div className='collapse navbar-collapse' id='SCP-navbar'>
           <Link className='navbar-brand mr-auto' to='/'>
-            Logo
+            <div style={{ width: '100px' }}>
+              <img
+                src='/images/scp-logo.png'
+                className='img-fluid'
+                alt='SCP Logo'
+              />
+            </div>
           </Link>
           <div className='navbar-nav'>
             <Link className='nav-item nav-link' to='/'>
