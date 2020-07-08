@@ -8,12 +8,12 @@ import CouponItem from './CouponItem';
 import CouponUsedExpired from './CouponUsedExpired';
 import selectCoupons from '../selectors/coupons';
 import selectUsedExpired from '../selectors/couponsUsedExpired';
+import Spinner from './Spinner';
 
 const Dashboard = ({
   getAllCoupons,
   getCategories,
-  coupons,
-  loading,
+  coupon: { coupons, loading },
   filter
 }) => {
   const [openingCouponId, setOpeningCouponId] = useState(undefined);
@@ -27,7 +27,9 @@ const Dashboard = ({
   const couponsFiltered = selectCoupons(coupons, filter);
   const couponsUsedandExpired = selectUsedExpired(coupons);
 
-  return coupons.length > 0 ? (
+  return loading ? (
+    <Spinner />
+  ) : coupons.length > 0 ? (
     <Fragment>
       <div className='container'>
         <CouponFilters />
@@ -77,11 +79,11 @@ const Dashboard = ({
     </Fragment>
   ) : (
     <Fragment>
-      <div className='container text-center'>
-        <h2>You have no coupon.</h2>
-      </div>
-      <div className='text-center'>
-        <div className='btn-addCoupon my-4'>
+      <div className='container text-center pt-5'>
+        <img src='/images/no-coupon.png' style={{ width: '300px' }} />
+        <h4>Oops, no coupon...</h4>
+
+        <div className='btn-addCoupon mt-5'>
           <Link className='btn-addCoupon__icon-text' to='/add-coupon'>
             <i className='fas fa-2x fa-plus-circle'></i>
             Add coupon
@@ -95,14 +97,12 @@ const Dashboard = ({
 Dashboard.propTypes = {
   getAllCoupons: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
-  coupons: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
+  coupon: PropTypes.object.isRequired,
   filter: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  coupons: state.coupon.coupons,
-  loading: state.coupon.loading,
+  coupon: state.coupon,
   filter: state.filter
 });
 

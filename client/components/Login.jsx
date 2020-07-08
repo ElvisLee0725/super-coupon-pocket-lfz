@@ -31,7 +31,11 @@ const Login = ({ login, isAuthenticated }) => {
     <Fragment>
       <div className='box-layout'>
         <div className='box-layout__box'>
-          <h4 className='mb-4'>Super Coupon Pocket</h4>
+          <img
+            src='/images/scp-logo.png'
+            className='img-fluid mb-5'
+            alt='SCP Logo'
+          />
 
           <form onSubmit={e => handleSubmit(e)}>
             <div className='form-group'>
