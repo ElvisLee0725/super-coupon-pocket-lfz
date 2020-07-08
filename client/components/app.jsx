@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
+import Profile from './Profile';
 import AddCoupon from './AddCoupon';
 import EditCoupon from './EditCoupon';
 import PrivateRoute from '../routers/PrivateRoute';
@@ -51,6 +52,7 @@ export default class App extends React.Component {
               <Route exact path='/' component={Login} />
               <Route exact path='/register' component={Register} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute exact path='/profile' component={Profile} />
               <PrivateRoute exact path='/add-coupon' component={AddCoupon} />
               <PrivateRoute
                 exact
