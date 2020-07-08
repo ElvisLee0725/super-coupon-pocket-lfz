@@ -33,11 +33,11 @@ const Navbar = ({ logout, isAuthenticated }) => {
             <Link className='nav-item nav-link' to='/'>
               Dashboard
             </Link>
-            <Link className='nav-item nav-link' to='#!'>
-              Profile
+            <Link className='nav-item nav-link' to='/profile'>
+              <i className='fas fa-user'></i>&nbsp;Profile
             </Link>
             <a onClick={logout} className='nav-item nav-link' href=''>
-              <i className='fas fa-sign-out-alt'></i>Logout
+              <i className='fas fa-sign-out-alt'></i>&nbsp;Logout
             </a>
           </div>
         </div>
