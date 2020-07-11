@@ -210,6 +210,8 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 38	3	Peet's 	1 free beverage any size	1	2020-08-31T19:00:00.000Z	2020-07-05 20:47:53.615886+00	f
 31	3	Shell	Use app pay with PayPal $3 off 	5	2020-07-31T19:00:00.000Z	2020-07-03 18:14:19.189666+00	f
 42	3	Boiling Point	$10 off with meal order	1	2020-07-20T19:00:00.000Z	2020-07-05 23:22:20.768589+00	t
+49	3	El Pollo Loco	25% off online order	1	2020-07-12T19:00:00.000Z	2020-07-11 05:25:57.935946+00	f
+50	3	Panera Bread	1 free pasta, any variety	1	2020-07-20T19:00:00.000Z	2020-07-11 05:55:33.07276+00	f
 36	3	Cheesecake Factory	$20 lunch special	1	2020-07-03T18:59:20.214Z	2020-07-03 18:59:59.307816+00	t
 34	3	IHG	1 free night up to 40,000 points	2	2020-08-31T19:00:00.000Z	2020-07-03 18:57:19.561076+00	t
 \.
@@ -244,7 +246,7 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 48, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 50, true);
 
 
 --
