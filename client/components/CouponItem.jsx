@@ -18,7 +18,9 @@ const CouponItem = ({
 
   return (
     <Fragment>
-      <div className='coupon-layout mb-3 p-3'>
+      <div
+        className={`coupon-layout mb-3 p-3 ${openCouponTab && 'couponShadow'}`}
+      >
         <div className='coupon-container'>
           <div className='coupon-checkUsed'>
             <form>
