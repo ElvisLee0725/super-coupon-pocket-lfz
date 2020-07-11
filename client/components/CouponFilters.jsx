@@ -50,10 +50,10 @@ const CouponFilters = ({
   return (
     <div className='mt-4 mb-3'>
       <form>
-        <div className='form-group'>
+        <div className='form-group form-group--insertIcon insertIcon-right'>
           <input
             type='text'
-            className='form-control'
+            className='form-control input-field font-italic'
             placeholder='Search'
             name='searchInput'
             value={searchInput}
@@ -62,6 +62,7 @@ const CouponFilters = ({
               setSearchInput(e.target.value);
             }}
           />
+          <i className='fas fa-search'></i>
         </div>
         <div className='form-group'>
           {categories.map(cat => (

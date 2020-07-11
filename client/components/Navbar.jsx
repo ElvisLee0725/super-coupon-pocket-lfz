@@ -31,7 +31,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
           </Link>
           <div className='navbar-nav'>
             <Link className='nav-item nav-link' to='/'>
-              Dashboard
+              <i className='fas fa-tachometer-alt'></i>&nbsp;Dashboard
             </Link>
             <Link className='nav-item nav-link' to='/profile'>
               <i className='fas fa-user'></i>&nbsp;Profile

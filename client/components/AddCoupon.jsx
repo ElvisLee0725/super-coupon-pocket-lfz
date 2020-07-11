@@ -45,15 +45,16 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
         <h2 className='text-center'>Add</h2>
 
         <form onSubmit={e => handleSubmit(e)}>
-          <div className='form-group'>
+          <div className='form-group form-group--insertIcon insertIcon-left'>
             <input
               type='text'
-              className='form-control'
+              className='form-control input-field font-italic'
               placeholder='Merchant, store, you name it!'
               name='merchant'
               value={merchant}
               onChange={e => handleChange(e)}
             />
+            <i className='fas fa-store'></i>
           </div>
           <div className='form-group'>
             <textarea

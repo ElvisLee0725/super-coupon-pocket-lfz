@@ -44,49 +44,53 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <h4 className='mb-4'>Sign Up</h4>
 
           <form onSubmit={e => handleSubmit(e)}>
-            <div className='form-group'>
+            <div className='form-group form-group--insertIcon insertIcon-left'>
               <input
                 type='text'
-                className='form-control'
+                className='form-control input-field font-italic'
                 placeholder='Name'
                 name='username'
                 value={username}
                 onChange={e => handleChange(e)}
                 required
               />
+              <i className='fas fa-user'></i>
             </div>
-            <div className='form-group'>
+            <div className='form-group form-group--insertIcon insertIcon-left'>
               <input
                 type='email'
-                className='form-control'
+                className='form-control input-field font-italic'
                 placeholder='Email'
                 name='email'
                 value={email}
                 onChange={e => handleChange(e)}
                 required
               />
+              <i className='far fa-envelope'></i>
             </div>
-            <div className='form-group'>
+            <div className='form-group form-group--insertIcon insertIcon-left'>
               <input
                 type='password'
-                className='form-control'
+                className='form-control input-field font-italic'
                 placeholder='Password'
                 name='password'
                 value={password}
                 onChange={e => handleChange(e)}
                 minLength='6'
               />
+              <i className='fas fa-lock'></i>
             </div>
-            <div className='form-group'>
+            <div className='form-group form-group--insertIcon insertIcon-left'>
               <input
                 type='password'
-                className='form-control'
+                className='form-control input-field font-italic'
                 placeholder='Confirm Password'
                 name='repeatPassword'
                 value={repeatPassword}
                 onChange={e => handleChange(e)}
                 minLength='6'
               />
+              <i className='fas fa-lock'></i>
             </div>
             <div className='form-group float-left'>
               <input

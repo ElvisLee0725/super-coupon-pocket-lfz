@@ -5,6 +5,11 @@
   overflow: hidden;
 }
 
+.couponShadow {
+  box-shadow: 5px 5px 10px #999;
+  transition: 0.3s ease-in-out;
+}
+
 .coupon-container {
   display: flex;
 }
